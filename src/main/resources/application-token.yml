@@ -1,0 +1,4 @@
+github:
+  client_id: 4bbe59b576eea0d10c54
+  client_secret: 94c1edfd3e919eb916f51c77b14ef0b1d4317aea
+  redirect_uri: http://localhost:8887/callback

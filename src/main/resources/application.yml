@@ -1,2 +1,5 @@
 server:
   port: 8887
+spring:
+  profiles:
+    active: token
