@@ -2,4 +2,4 @@ server:
   port: 8887
 spring:
   profiles:
-    active: token
+    active: token,spring,mybatis
