@@ -16,18 +16,22 @@ public class UserServiceImplTest {
     @Autowired
     private UserService userService;
     @Test
-    public void inserUser() {
+    public void insertUserByAidIsNull() {
         User user = new User();
         user.setAccountId("1");
         user.setName("张三");
         user.setToken(UUID.randomUUID().toString());
         user.setGemCreate(System.currentTimeMillis());
         user.setGemModified(System.currentTimeMillis());
-        userService.inserUser(user);
+        userService.insertUserByAidIsNull(user);
         System.out.println("新插入的user的Id="+user.getId());
     }
     @Test
     public void selectUserById() {
         System.out.println(userService.selectUserById(1));
+    }
+    @Test
+    public void selectUserByAccountId(){
+        System.out.println("你好；"+userService.selectByAccountId("ffb20d76b536e9fa082b7ae3c3cf46a07a0e238f"));
     }
 }
