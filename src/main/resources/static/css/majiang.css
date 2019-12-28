@@ -1,0 +1,27 @@
+body{
+    background-color: #efefef;
+}
+.publish_div_left{
+    border-right: 1px solid silver;
+}
+.main{
+    background-color: white;
+    margin: 40px;
+    padding-top: 25px;
+}
+#publish_p_fq{
+    border-bottom: 1px solid silver;
+    font-size: 25px;
+}
+.publish_div_right p{
+    line-height: 150%;
+    margin-top: 10px;
+}
+.publish-btn-fq{
+   float: right;
+    margin-right: 30px;
+}
+.publish-error{
+    color: #b92c28;
+    height: 15px;
+}

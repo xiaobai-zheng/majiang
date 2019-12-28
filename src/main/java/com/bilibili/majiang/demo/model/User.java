@@ -14,5 +14,4 @@ public class User {
   private String token;
   private Long gemCreate;
   private Long gemModified;
-
 }
