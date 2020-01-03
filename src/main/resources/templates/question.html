@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>码匠社区</title>
+    <script type="text/javascript" src="/Jquery/jquery-1.12.4.js" language="JavaScript"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/majiang.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{navigation :: nav}"></div><br>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-sm-9  publish_div_left" th:if="${questionDto != null}">
+            <h3 th:text="${questionDto.getTitle()}">
+                <div class="text-desc">
+                    <span th:text="${questionDto.getCommentCount()}"></span> 个回复 •
+                    <span th:text="${questionDto.getViewCount()}"></span>次浏览 •
+                    <span th:text="${#dates.format(questionDto.getGemModified(),'yyyy-MM-dd HH:mm:SS')}"></span>
+                </div>
+            </h3><hr>
+            <div>desc</div><hr><hr>
+            <span th:if="${questionDto.getCreator()==session.user.id}"><a th:href="'/editQuestion/'+${questionDto.getId()}" class="majiang-tool"><span class="glyphicon glyphicon-pencil"></span>编辑</a></span>
+            <div>
+                <div  th:text="${questionDto.getDescription()}"></div><hr>
+            </div>
+            <textarea name="description" class="form-control" cols="30" rows="10" th:value="${description}"></textarea>
+        </div>
+        <div class="col-sm-3 publish_div_right">
+            <div><h2>发起人</h2></div>
+            <div class="media">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object avatar-img" th:src="${questionDto.avatarUrl}" alt="头像">
+                    </a>
+                </div>
+                <div class="media-body" >
+                    <h5 class="media-centre"><span th:text="${questionDto.getCreatorName()}"></span></h5>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

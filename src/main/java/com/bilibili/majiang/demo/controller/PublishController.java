@@ -1,8 +1,8 @@
 package com.bilibili.majiang.demo.controller;
 
-import com.bilibili.majiang.demo.model.Publish;
+import com.bilibili.majiang.demo.model.Question;
 import com.bilibili.majiang.demo.model.User;
-import com.bilibili.majiang.demo.service.PublishService;
+import com.bilibili.majiang.demo.service.QuestionService;
 import com.bilibili.majiang.demo.vo.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,20 +18,13 @@ import java.util.Map;
 @Controller
 public class PublishController {
     @Autowired
-    private PublishService publishService;
+    private QuestionService questionService;
     @GetMapping("/publish")
     public String publish(){
         return "publish";
     }
     @PostMapping("/publish")
-    public String doPublish(String title,String description,String tag, HttpServletRequest httpServletRequest,Model model){
-        HttpSession session = httpServletRequest.getSession();
-        User user = (User)session.getAttribute("user");
-        System.out.println("user;;"+user);
-        model.addAttribute("title",title);
-        model.addAttribute("description",description);
-        model.addAttribute("tag",tag);
-
+    public String doPublish(Integer id,String title,String description,String tag, HttpServletRequest httpServletRequest,Model model){
         if (title ==null||title==""||description  == null||description==""||tag == null||tag==""){
               Msg msg = Msg.fail();
               Map<String, String> errorMap = new HashMap();
@@ -44,19 +37,25 @@ public class PublishController {
               if (tag == null||tag==""){
                   errorMap.put("tagError","标签不能为空,");
               }
-              System.out.println("存在错误==>"+errorMap);
-               msg.add("errorMap",errorMap);
-               model.addAttribute("publishMsg",msg);
+                model.addAttribute("title",title);
+                model.addAttribute("description",description);
+                model.addAttribute("tag",tag);
+                model.addAttribute("id",id);
+                msg.add("errorMap",errorMap);
+                model.addAttribute("msg",msg);
                  return "publish";
            }
-            Publish publish = new Publish();
-            publish.setTitle(title);
-            publish.setDescription(description);
-            publish.setTag(tag);
-            publish.setCreator(0);
-            publish.setGemCreate(System.currentTimeMillis());
-            publish.setGemModified(publish.getGemCreate());
-            publishService.insertPublish(publish);
+            HttpSession session = httpServletRequest.getSession();
+            User user = (User)session.getAttribute("user");
+            Question question = new Question();
+            question.setId(id);
+            question.setTitle(title);
+            question.setDescription(description);
+            question.setTag(tag);
+            question.setCreator(user.getId());
+            question.setGemCreate(System.currentTimeMillis());
+            question.setGemModified(question.getGemCreate());
+            questionService.insertOrUpdateQuestion(question);
             return "redirect:/";
     }
 }

@@ -3,64 +3,34 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title>码匠社区</title>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <link type="text/css" href="css/bootstrap.min.css" rel="stylesheet">
-    <link type="text/css" href="css/bootstrap-theme.min.css" rel="stylesheet">
-    <link type="text/css" href="css/majiang.css" rel="stylesheet">
+    <script type="text/javascript" src="/Jquery/jquery-1.12.4.js" language="JavaScript"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/majiang.css" rel="stylesheet">
 </head>
 <body>
-<nav class="navbar navbar-default">
-    <div class="container-fluid">
-        <!-- Brand and toggle get grouped for better mobile display -->
-        <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
-                <span class="sr-only">码匠社区</span>
-            </button>
-            <a class="navbar-brand" href="#">码匠社区</a>
-        </div>
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <form class="navbar-form navbar-left">
-                <div class="form-group">
-                    <input type="text" class="form-control" placeholder="搜索问答">
-                </div>
-                <button type="submit" class="btn btn-default">搜索</button>
-            </form>
-            <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user!=null}" ><a href="/publish">提问</a></li>
-                <li class="dropdown" th:if="${session.user!=null}">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><b th:text="${session.user.name}"></b><span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a href="#">信息中心</a></li>
-                        <li><a href="#">个人资料</a></li>
-                        <li><a href="#">退出登入</a></li>
-                    </ul>
-                </li>
-                <li th:if="${session.user==null}">
-                    <a href="https://github.com/login/oauth/authorize?client_id=4bbe59b576eea0d10c54&redirect_uri=http://localhost:8887/callback&scope=1" methods="get">登入</a>
-                </li>
-            </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-</nav><br>
+<div th:insert="~{navigation :: nav}"></div><br>
 <div class="container-fluid main">
     <div class="row">
         <div class="col-sm-9  publish_div_left">
-            <p id="publish_p_fq"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>发起</b></p>
+            <p class="p_fq"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span><b>发起</b></p>
             <form action="/publish" method="post">
                 <div class="form-group">
+                    <input type="hidden" name="id" th:value="${id}">
                     <label for="title">问题标题(简单扼要)</label>
                     <input type="text" class="form-control" id="title" name="title" placeholder="问题标题" th:value="${title}">
-                    <span th:if="${publishMsg!=null&&publishMsg.getExtend()!=null&&publishMsg.getExtend().get('errorMap')!=null}"><span th:text="${publishMsg.getExtend().get('errorMap').get('titleError')}" class="publish-error"></span></span>
+                    <span th:if="${msg!=null&&msg.getExtend()!=null&&msg.getExtend().get('errorMap')!=null}"><span th:text="${msg.getExtend().get('errorMap').get('titleError')}" class="publish-error"></span></span>
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充 （必填，请参考右边提示）</label>
                     <textarea name="description" class="form-control" cols="30" rows="10" th:value="${description}"></textarea>
-                    <span th:if="${publishMsg!=null&&publishMsg.getExtend()!=null&&publishMsg.getExtend().get('errorMap')!=null}"><span th:text="${publishMsg.getExtend().get('errorMap').get('descriptionError')}" class="publish-error"></span></span>
+                    <span th:if="${msg!=null&&msg.getExtend()!=null&&msg.getExtend().get('errorMap')!=null}"><span th:text="${msg.getExtend().get('errorMap').get('descriptionError')}" class="publish-error"></span></span>
                 </div>
                 <div class="form-group">
                     <label for="title">添加标签：</label>
                     <input type="text" class="form-control" name="tag" placeholder="添加标签，以，好分隔" th:value="${tag}">
-                    <span th:if="${publishMsg!=null&&publishMsg.getExtend()!=null&&publishMsg.getExtend().get('errorMap')!=null}"><span th:text="${publishMsg.getExtend().get('errorMap').get('tagError')}" class="publish-error"></span></span>
+                    <span th:if="${msg!=null&&msg.getExtend()!=null&&msg.getExtend().get('errorMap')!=null}"><span th:text="${msg.getExtend().get('errorMap').get('tagError')}" class="publish-error"></span></span>
                 </div>
                 <button type="submit" class="btn btn-success publish-btn-fq">发起</button>
             </form>
@@ -70,7 +40,6 @@
             <p> • 问题标题: 请用精简的语言描述您发布的问题，不超过25字</p>
             <p> • 问题补充: 详细补充您的问题内容，并确保问题描述清晰直观, 并提供一些相关的资料</p>
             <p> • 选择标签: 选择一个或者多个合适的标签，用逗号隔开，每个标签不超过10个字</p>
-            </p>
         </div>
     </div>
 </div>

@@ -44,9 +44,13 @@ public class AuthorizeController {
             user.setName(gitHubUser.getName());
             user.setAccountId(String.valueOf(gitHubUser.getId()));
             user.setToken(token);
+            user.setAvatarUrl(gitHubUser.getAvatarUrl());
             user.setGemCreate(System.currentTimeMillis());
             user.setGemModified(System.currentTimeMillis());
-            userService.insertUserByAidIsNull(user);
+            Integer integer = userService.insertUserByAidIsNull(user);
+            if (integer!=null){
+                user.setId(integer);
+            }
             HttpSession session = httpServletRequest.getSession();
             session.setAttribute("user",user);
 //            httpServletResponse.addCookie(new Cookie("accountId",user.getAccountId()));
@@ -60,6 +64,14 @@ public class AuthorizeController {
             return "redirect:/";
         }
 
+    }
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest httpServletRequest,HttpServletResponse httpServletResponse){
+        httpServletRequest.getSession().setAttribute("user",null);
+//        Cookie cookie = new Cookie("JSESSIONID",null);
+//        cookie.setMaxAge(0);
+//        httpServletResponse.addCookie(cookie);
+        return "redirect:/";
     }
 
 }

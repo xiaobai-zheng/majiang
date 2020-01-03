@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title th:text="${sectionName}"></title>
+    <script type="text/javascript" src="/Jquery/jquery-1.12.4.js" language="JavaScript"></script>
+    <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/majiang.css" rel="stylesheet">
+</head>
+<body>
+<div th:insert="~{navigation :: nav}"></div>
+<div class="container-fluid main">
+    <div class="row">
+        <div class="col-sm-9  publish_div_left">
+            <h2 class="p_fq" th:text="${sectionName}"></h2><hr>
+
+            <span th:if="${pageInfo!=null}">
+            <div class="media" th:each="questionDto:${pageInfo.list}">
+                <div class="media-left media-middle">
+                    <a href="#">
+                        <img class="media-object avatar-img" th:src="${questionDto.avatarUrl}" alt="头像">
+                    </a>
+                </div>
+                <div class="media-body" >
+                    <h4 class="media-heading" th:text="${questionDto.getTitle()}"></h4>
+                    <span th:text="${questionDto.getDescription()}"></span><br>
+                    <span class="text-desc">
+                        <span th:text="${questionDto.getCommentCount()}"></span> 个回复 •
+                        <span th:text="${questionDto.getViewCount()}"></span>次浏览 •
+                        <span th:text="${#dates.format(questionDto.getGemModified(),'yyyy-MM-dd HH:mm:SS')}"></span>
+                    </span>
+                </div>
+            </div>
+            </span>
+        </div>
+        <div class="col-sm-3 publish_div_right">
+            <div class="list-group">
+                <a href="/profile/questions" th:class="${section=='questions'}?'list-group-item active':'list-group-item'">我的问题</a>
+                <a href="/profile/replies"  th:class="${section=='replies'}?'list-group-item active':'list-group-item'">最新回复</a>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

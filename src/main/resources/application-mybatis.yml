@@ -1,2 +1,4 @@
 mybatis:
   type-aliases-package: com.bilibili.majiang.demo.model.User
+pagehelper:
+  helperDialect: h2

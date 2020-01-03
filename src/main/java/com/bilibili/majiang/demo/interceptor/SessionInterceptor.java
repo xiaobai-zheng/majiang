@@ -6,14 +6,15 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class PublishInterceptor implements HandlerInterceptor {
+public class SessionInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object user = request.getSession().getAttribute("user");
         if (user == null){
+            System.out.println(request.getServerName());
             return false;
         }
-        response.getWriter().write("请先登入");
+        System.out.println("成功通过");
         return true;
     }
 

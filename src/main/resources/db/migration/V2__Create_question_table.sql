@@ -1,4 +1,4 @@
-create table publish
+create table question
 (
 	id int auto_increment,
 	title varchar(50),
@@ -10,7 +10,7 @@ create table publish
 	comment_count int default 0,
 	view_count int default 0,
 	like_count int default 0,
-	constraint publish_pk
+	constraint question_pk
 		primary key (id)
 );
 
