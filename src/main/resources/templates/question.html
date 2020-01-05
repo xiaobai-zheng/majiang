@@ -14,15 +14,14 @@
 <div class="container-fluid main">
     <div class="row">
         <div class="col-sm-9  publish_div_left" th:if="${questionDto != null}">
-            <h3 th:text="${questionDto.getTitle()}">
-                <div class="text-desc">
-                    <span th:text="${questionDto.getCommentCount()}"></span> 个回复 •
-                    <span th:text="${questionDto.getViewCount()}"></span>次浏览 •
-                    <span th:text="${#dates.format(questionDto.getGemModified(),'yyyy-MM-dd HH:mm:SS')}"></span>
-                </div>
-            </h3><hr>
+            <h3 th:text="${questionDto.getTitle()}"></h3>
+            <div class="text-desc">
+                <span th:text="${questionDto.getCommentCount()}"></span> 个回复 •
+                <span th:text="${questionDto.getViewCount()}"></span>次浏览 •
+                <span th:text="${#dates.format(questionDto.getGemModified(),'yyyy-MM-dd HH:mm:SS')}"></span>
+            </div><hr>
             <div>desc</div><hr><hr>
-            <span th:if="${questionDto.getCreator()==session.user.id}"><a th:href="'/editQuestion/'+${questionDto.getId()}" class="majiang-tool"><span class="glyphicon glyphicon-pencil"></span>编辑</a></span>
+            <span th:if="${questionDto.getCreator()==session.user.id}" class="majiang-tool"><a th:href="'/editQuestion/'+${questionDto.getId()}"><span class="glyphicon glyphicon-pencil"></span>编辑</a></span>
             <div>
                 <div  th:text="${questionDto.getDescription()}"></div><hr>
             </div>

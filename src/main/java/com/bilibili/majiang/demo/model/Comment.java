@@ -6,18 +6,16 @@ import tk.mybatis.mapper.annotation.KeySql;
 import javax.persistence.Id;
 
 @Data
-public class Question {
-
+public class Comment {
   @Id
   @KeySql(useGeneratedKeys = true)
   private Integer id;
-  private String title;
-  private String description;
-  private String tag;
+  private String content;
+  private Integer parentId;
+  private Integer type;
+  private Integer commentator;
   private Long gemCreate;
   private Long gemModified;
-  private Integer creator;
-  private Integer commentCount;
-  private Integer viewCount;
-  private Integer likeCount;
+  private Long likeCount;
+
 }
