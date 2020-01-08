@@ -5,7 +5,5 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-mapper:
-  mappers: com.bilibili.majiang.demo.mapper
 #在格式：logging.level.Mapper类的包=debug  会在控制台打印出sql语句
 
