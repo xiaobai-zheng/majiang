@@ -5,5 +5,4 @@ pagehelper:
   reasonable: true
   supportMethodsArguments: true
   params: count=countSql
-#在格式：logging.level.Mapper类的包=debug  会在控制台打印出sql语句
 
