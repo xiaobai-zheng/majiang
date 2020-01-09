@@ -52,23 +52,23 @@ public class QuestionServiceImp implements QuestionService {
 
     @Override
     public PageInfo<QuestionDto> getPageInfo(Integer pn,Integer pageSize) {
+        PageHelper.offsetPage(pn,pageSize);
         List<Question> questions = questionMapper.selectAll();
         List<QuestionDto> questionDtos = this.questionDtoList(questions);
-        PageHelper.startPage(pn,pageSize);
 //        System.out.println("questionDtos的长度；"+questionDtos.size());
         PageInfo<QuestionDto> pageInfo = new PageInfo<>(questionDtos, 5);
-
+        System.out.println("pageInfo;"+pageInfo);
         return pageInfo;
     }
 
     @Override
     public PageInfo<QuestionDto> myQuestionspage(Integer creator,Integer pn,Integer pageSize) {
+        PageHelper.offsetPage(pn,pageSize);
         Example example = new Example(Question.class);
         example.createCriteria().andEqualTo("creator",creator);
         List<Question> questions = questionMapper.selectByExample(example);
         System.out.println("questions"+questions);
         List<QuestionDto> questionDtos = this.questionDtoList(questions);
-        PageHelper.startPage(pn,pageSize);
         PageInfo<QuestionDto> pageInfo = new PageInfo<>(questionDtos, 5);
         return pageInfo;
     }

@@ -3,6 +3,4 @@ mybatis:
 pagehelper:
   helperDialect: h2
   reasonable: true
-  supportMethodsArguments: true
-  params: count=countSql
 
