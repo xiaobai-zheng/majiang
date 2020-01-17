@@ -1,5 +1,8 @@
 package com.bilibili.majiang.demo.interceptor;
 
+import com.alibaba.fastjson.JSON;
+import com.bilibili.majiang.demo.exception.CustomExceptionCodeImpl;
+import com.bilibili.majiang.demo.vo.Msg;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -11,7 +14,9 @@ public class SessionInterceptor implements HandlerInterceptor {
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         Object user = request.getSession().getAttribute("user");
         if (user == null){
-            System.out.println(request.getServerName());
+            response.setCharacterEncoding("UTF-8");
+            response.setContentType("application/json");
+            response.getWriter().write(JSON.toJSONString(Msg.fail(CustomExceptionCodeImpl.FIND_USER_EXCEPTION)));
             return false;
         }
         System.out.println("成功通过");

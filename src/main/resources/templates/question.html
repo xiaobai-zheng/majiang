@@ -8,6 +8,7 @@
     <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="/css/bootstrap-theme.min.css" rel="stylesheet">
     <link type="text/css" href="/css/majiang.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/community.js" language="JavaScript"></script>
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div><br>
@@ -25,7 +26,16 @@
             <div>
                 <div  th:text="${questionDto.getDescription()}"></div><hr>
             </div>
-            <textarea name="description" class="form-control" cols="30" rows="10" th:value="${description}"></textarea>
+            <div id="comment-area">
+                <div>
+                    <img class="avatar-img" th:src="${questionDto.avatarUrl}" alt="头像">
+                    <b th:text="${questionDto.getCreatorName()}"></b>
+                </div>
+                <input type="hidden" name="parentId" th:value="${questionDto.id}">
+                <input type="hidden" name="type" value="1">
+                <textarea name="content" class="form-control comment-textarea" cols="30" rows="10"></textarea>
+                <button class="publish-btn-fq btn btn-success" onclick="submitComment()">提交</button>
+            </div>
         </div>
         <div class="col-sm-3 publish_div_right">
             <div><h2>发起人</h2></div>
@@ -43,4 +53,7 @@
     </div>
 </div>
 </body>
+<script type="text/javascript">
+
+</script>
 </html>

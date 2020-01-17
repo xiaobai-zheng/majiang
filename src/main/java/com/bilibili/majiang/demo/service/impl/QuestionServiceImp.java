@@ -1,6 +1,8 @@
 package com.bilibili.majiang.demo.service.impl;
 
 import com.bilibili.majiang.demo.dto.QuestionDto;
+import com.bilibili.majiang.demo.exception.CustomException;
+import com.bilibili.majiang.demo.exception.CustomExceptionCodeImpl;
 import com.bilibili.majiang.demo.mapper.QuestionMapper;
 import com.bilibili.majiang.demo.mapper.UserMapper;
 import com.bilibili.majiang.demo.model.Question;
@@ -12,7 +14,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import tk.mybatis.mapper.entity.Example;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -52,31 +53,36 @@ public class QuestionServiceImp implements QuestionService {
 
     @Override
     public PageInfo<QuestionDto> getPageInfo(Integer pn,Integer pageSize) {
-        PageHelper.offsetPage(pn,pageSize);
+        PageHelper.startPage(pn,pageSize,true);
         List<Question> questions = questionMapper.selectAll();
+        PageInfo<Question> pageInfo = new PageInfo<>(questions, 5);
+        PageInfo<QuestionDto> pageInfo1 = new PageInfo<>();
         List<QuestionDto> questionDtos = this.questionDtoList(questions);
-//        System.out.println("questionDtos的长度；"+questionDtos.size());
-        PageInfo<QuestionDto> pageInfo = new PageInfo<>(questionDtos, 5);
-        System.out.println("pageInfo;"+pageInfo);
-        return pageInfo;
+        BeanUtils.copyProperties(pageInfo,pageInfo1);
+        pageInfo1.setList(questionDtos);
+        return pageInfo1;
     }
 
     @Override
     public PageInfo<QuestionDto> myQuestionspage(Integer creator,Integer pn,Integer pageSize) {
-        PageHelper.offsetPage(pn,pageSize);
+        PageHelper.startPage(pn,pageSize,true);
         Example example = new Example(Question.class);
         example.createCriteria().andEqualTo("creator",creator);
         List<Question> questions = questionMapper.selectByExample(example);
-        System.out.println("questions"+questions);
+        PageInfo<Question> pageInfo = new PageInfo<>(questions, 5);
         List<QuestionDto> questionDtos = this.questionDtoList(questions);
-        PageInfo<QuestionDto> pageInfo = new PageInfo<>(questionDtos, 5);
-        return pageInfo;
+        PageInfo<QuestionDto> pageInfo1 = new PageInfo<>();
+        BeanUtils.copyProperties(pageInfo,pageInfo1);
+        pageInfo1.setList(questionDtos);
+        return pageInfo1;
     }
 
     @Override
     public QuestionDto selectQuestionById(Integer id) {
         Question question = questionMapper.selectByPrimaryKey(id);
-
+        if(question == null){
+            throw new CustomException(CustomExceptionCodeImpl.FIND_QUESTION_EXCEPTION);
+        }
         User user = userMapper.selectByPrimaryKey(question.getCreator());
         QuestionDto questionDto = new QuestionDto();
         BeanUtils.copyProperties(question,questionDto);

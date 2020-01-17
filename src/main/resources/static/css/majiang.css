@@ -19,10 +19,12 @@ body{
 }
 .publish-btn-fq{
    float: right;
-    margin-right: 30px;
 }
 .publish-error{
     color: #b92c28;
+}
+.comment-textarea{
+    margin: 10px 0px;
 }
 .avatar-img{
     width: 38px;
@@ -40,6 +42,20 @@ body{
     color: #999;
     font-size: 13px;
 }
-span .majiang-tool{
+span .tool{
     padding-top: 0px;
+}
+#commentCount{
+    margin-bottom: 0px;
+}
+.menu {
+    color: #999;
+    margin-top: 5px;
+}
+.comment-icon {
+    font-size: 15px;
+    cursor: pointer;
+}
+.comment-icon:hover{
+    color: #499ef3;
 }

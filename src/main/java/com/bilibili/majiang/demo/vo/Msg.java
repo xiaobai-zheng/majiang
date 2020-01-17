@@ -1,5 +1,6 @@
 package com.bilibili.majiang.demo.vo;
 
+import com.bilibili.majiang.demo.exception.CustomExceptionCode;
 import lombok.Data;
 
 import java.util.HashMap;
@@ -20,6 +21,12 @@ public class Msg {
         Msg result = new Msg();
         result.setCode(200);
         result.setMsg("操作失败");
+        return result;
+    }
+    public static Msg fail(CustomExceptionCode ec){
+        Msg result = new Msg();
+        result.setCode(ec.getCode());
+        result.setMsg(ec.getMessage());
         return result;
     }
     public Msg add(String key, Object object){

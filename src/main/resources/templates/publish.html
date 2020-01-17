@@ -24,7 +24,7 @@
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充 （必填，请参考右边提示）</label>
-                    <textarea name="description" class="form-control" cols="30" rows="10" th:value="${description}"></textarea>
+                    <textarea name="description" class="form-control" cols="30" rows="10" th:text = "${description}"></textarea>
                     <span th:if="${msg!=null&&msg.getExtend()!=null&&msg.getExtend().get('errorMap')!=null}"><span th:text="${msg.getExtend().get('errorMap').get('descriptionError')}" class="publish-error"></span></span>
                 </div>
                 <div class="form-group">
