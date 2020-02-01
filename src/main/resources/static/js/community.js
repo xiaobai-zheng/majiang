@@ -2,6 +2,10 @@ function submitComment(){
     var parentId=$("input[name='parentId']").val();
     var type=$("input[name='type']").val();
     var content=$("textarea[name='content']").val();
+    if(!content){
+        alert("评论内容不能为空~~~~");
+        return;
+    }
     $.ajax({
         url:"/submitComment",
         type:"post",
@@ -10,8 +14,8 @@ function submitComment(){
         data:JSON.stringify({"parentId":parentId,"type":type,"content":content}),
         success:function(result){
             if (result.code==100){
+                window.location.reload();
                 $("#comment-area").hide();
-                console.log(result.msg);
             }else {
                 if (result.code==205){
                     if (confirm(result.msg)){

@@ -19,7 +19,7 @@ public class IndexController {
         PageInfo<QuestionDto> pageInfo = questionService.getPageInfo(pn,pageSize);
 //        Msg msg = Msg.success().add("pageInfo", paageInfo);
 //        System.out.println(pageInfo);
-        model.addAttribute("pageInfo",pageInfo);
+         model.addAttribute("pageInfo",pageInfo);
         return "index";
     }
 

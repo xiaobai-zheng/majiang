@@ -97,4 +97,5 @@ public class QuestionServiceImp implements QuestionService {
     public int incViewCount(Integer id) {
         return questionMapper.incViewCount(id);
     }
+
 }
