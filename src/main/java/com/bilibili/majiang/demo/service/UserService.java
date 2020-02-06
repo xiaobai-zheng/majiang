@@ -3,7 +3,7 @@ package com.bilibili.majiang.demo.service;
 import com.bilibili.majiang.demo.model.User;
 
 public interface UserService {
-    Integer insertUserByAidIsNull(User user);
-    User selectUserById(Integer id);
+    Long insertUserByAidIsNull(User user);
+    User selectUserById(Long id);
     User selectByAccountId(String name);
 }

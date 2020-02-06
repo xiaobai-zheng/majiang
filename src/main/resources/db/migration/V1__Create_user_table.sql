@@ -1,6 +1,6 @@
 create table user
 (
-	id int auto_increment,
+	id bigint auto_increment,
 	account_id varchar(100),
 	avatar_url varchar(100),
 	bio varchar(256),

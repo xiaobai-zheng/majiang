@@ -58,27 +58,26 @@ public class CommentServiceImpl implements CommentService {
         if (num <=0){
             return Msg.fail();
         }else {
-            questionMapper.incCommentCount(comment.getParentId());
             return Msg.success();
         }
     }
 
     @Override
-    public List<CommentDto> getQuestionComment(int parentId) {
+    public List<CommentDto> getComment(Long parentId,int type) {
         Example example = new Example(Comment.class);
-        example.createCriteria().andEqualTo("parentId",parentId).andEqualTo("type",CustomTypeEnum.QUESTION_TYPE.getType());
+        example.createCriteria().andEqualTo("parentId",parentId).andEqualTo("type",type);
         example.setOrderByClause("gem_create desc");
         List<Comment> comments = commentMapper.selectByExample(example);
         if (ListUtils.isEmpty(comments)){
             return null;
         }
-        Set<Integer> commentator = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
-        List<Integer> userIds = new ArrayList<>();
+        Set<Long> commentator = comments.stream().map(comment -> comment.getCommentator()).collect(Collectors.toSet());
+        List<Long> userIds = new ArrayList<>();
         userIds.addAll(commentator);
         Example userExample = new Example(User.class);
         userExample.createCriteria().andIn("id",userIds);
         List<User> users = userMapper.selectByExample(userExample);
-        Map<Integer, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
+        Map<Long, User> userMap = users.stream().collect(Collectors.toMap(user -> user.getId(), user -> user));
         List<CommentDto> commentDtos = comments.stream().map(comment -> {
             User user = userMap.get(comment.getCommentator());
             CommentDto commentDto = new CommentDto();

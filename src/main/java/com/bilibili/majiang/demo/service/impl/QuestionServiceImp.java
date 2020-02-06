@@ -40,7 +40,7 @@ public class QuestionServiceImp implements QuestionService {
     }
     @Override
     public void insertOrUpdateQuestion(Question question) {
-        Integer id = question.getId();
+        Long id = question.getId();
         Question question1 = questionMapper.selectByPrimaryKey(id);
         if (question1 != null){
             Example example = new Example(Question.class);
@@ -64,7 +64,7 @@ public class QuestionServiceImp implements QuestionService {
     }
 
     @Override
-    public PageInfo<QuestionDto> myQuestionspage(Integer creator,Integer pn,Integer pageSize) {
+    public PageInfo<QuestionDto> myQuestionspage(Long creator, Integer pn, Integer pageSize) {
         PageHelper.startPage(pn,pageSize,true);
         Example example = new Example(Question.class);
         example.createCriteria().andEqualTo("creator",creator);
@@ -78,7 +78,7 @@ public class QuestionServiceImp implements QuestionService {
     }
 
     @Override
-    public QuestionDto selectQuestionById(Integer id) {
+    public QuestionDto selectQuestionById(Long id) {
         Question question = questionMapper.selectByPrimaryKey(id);
         if(question == null){
             throw new CustomException(CustomExceptionCodeImpl.FIND_QUESTION_EXCEPTION);
@@ -94,8 +94,13 @@ public class QuestionServiceImp implements QuestionService {
     }
 
     @Override
-    public int incViewCount(Integer id) {
+    public int incViewCount(Long id) {
         return questionMapper.incViewCount(id);
+    }
+
+    @Override
+    public int incCommentCount(Long id) {
+        return questionMapper.incCommentCount(id);
     }
 
 }

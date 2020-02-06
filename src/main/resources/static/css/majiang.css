@@ -18,7 +18,8 @@ body{
     margin-top: 10px;
 }
 .publish-btn-fq{
-   float: right;
+    margin-top: 10px;
+    float: right;
 }
 .publish-error{
     color: #b92c28;
@@ -27,12 +28,21 @@ body{
     margin: 10px 0px;
 }
 .comment-area{
-    border-bottom: 1px solid #eee;
-    padding: 0px 10px;
+    border-top: 1px solid #eee;
+    margin-bottom: 25px;
 }
 .comment{
-    padding-top: 15px;
-    border-top: 1px solid #eee;
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+}
+.input-comment{
+    padding: 10px;
+}
+.sun-comment-area{
+    border: 1px solid #eee;
+    border-radius: 5px;
+    margin-bottom: 25px;
+    margin-left: 86px;
 }
 .avatar-img{
     width: 38px;
@@ -67,5 +77,8 @@ body{
     cursor: pointer;
 }
 .comment-icon:hover{
+    color: #499ef3;
+}
+.active{
     color: #499ef3;
 }

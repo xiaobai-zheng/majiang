@@ -47,9 +47,9 @@ public class AuthorizeController {
             user.setAvatarUrl(gitHubUser.getAvatarUrl());
             user.setGemCreate(System.currentTimeMillis());
             user.setGemModified(System.currentTimeMillis());
-            Integer integer = userService.insertUserByAidIsNull(user);
-            if (integer!=null){
-                user.setId(integer);
+            Long aLong = userService.insertUserByAidIsNull(user);
+            if (aLong!=null){
+                user.setId(aLong);
             }
             HttpSession session = httpServletRequest.getSession();
             session.setAttribute("user",user);

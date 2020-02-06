@@ -6,6 +6,7 @@ import com.bilibili.majiang.demo.service.QuestionService;
 import com.bilibili.majiang.demo.vo.Msg;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,8 +24,9 @@ public class PublishController {
     public String publish(){
         return "publish";
     }
+    @Transactional
     @PostMapping("/publish")
-    public String doPublish(Integer id,String title,String description,String tag, HttpServletRequest httpServletRequest,Model model){
+    public String doPublish(Long id, String title, String description, String tag, HttpServletRequest httpServletRequest, Model model){
         if (title ==null||title==""||description  == null||description==""||tag == null||tag==""){
               Msg msg = Msg.fail();
               Map<String, String> errorMap = new HashMap();
@@ -56,6 +58,6 @@ public class PublishController {
             question.setGemCreate(System.currentTimeMillis());
             question.setGemModified(question.getGemCreate());
             questionService.insertOrUpdateQuestion(question);
-            return "redirect:/";
+            return "redirect:/?pn="+Integer.MAX_VALUE;
     }
 }

@@ -7,7 +7,8 @@ import com.github.pagehelper.PageInfo;
 public interface QuestionService {
    void insertOrUpdateQuestion(Question question);
    PageInfo<QuestionDto> getPageInfo(Integer pn,Integer pageSize);
-    PageInfo<QuestionDto> myQuestionspage(Integer Creator,Integer pn,Integer pageSize);
-    QuestionDto selectQuestionById(Integer id);
-    int incViewCount(Integer id);
+    PageInfo<QuestionDto> myQuestionspage(Long Creator, Integer pn, Integer pageSize);
+    QuestionDto selectQuestionById(Long id);
+    int incViewCount(Long id);
+    int incCommentCount(Long id);
 }

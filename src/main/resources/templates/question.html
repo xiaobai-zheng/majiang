@@ -31,7 +31,8 @@
                 <div><span th:text="${questionDto.getCommentCount()}" id="commentCount"></span>个评论</div>
 <!--                <hr style="margin-top: 0;">-->
             </div>
-            <div class="comment-area" th:if="${commentDtos != null}">
+            <div class="comment-area">
+            <span th:if="${commentDtos != null}">
                 <div th:each="commentDto:${commentDtos}" class="comment">
                     <div class="media">
                         <div class="media-left media-middle">
@@ -46,11 +47,20 @@
                     </div>
                     <div class="menu">
                         <span class="comment-icon"><span class="glyphicon glyphicon-thumbs-up " aria-hidden="true"></span><span th:text="${commentDto.getLikeCount()}"></span></span>
-                        <span class="glyphicon glyphicon-comment comment-icon" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-comment comment-icon" aria-hidden="true" th:data-id="${commentDto.getId()}" onclick="controllerCollapse(this)" th:data-collapse="1"></span>
                         <span class="pull-right" th:text="${#dates.format(commentDto.getGemModified(),'yyyy-MM-dd')}"></span>
                     </div>
+                    <div class="collapse sun-comment-area" th:id="'comment-'+${commentDto.getId()}">
+                        <div id="comment-div"></div>
+                        <div class="input-comment">
+                            <input type="text" class="form-control" th:name="'sunCommentContent-'+${commentDto.getId()}" placeholder="评论一下。。。。">
+                            <button class="publish-btn-fq btn btn-success btn-sm" th:data-parentCommentId="${commentDto.getId()}"
+                                    onclick="submitSunComment(this)">提交</button>
+                        </div>
+                    </div>
+                </div>
+            </span>
             </div>
-            <hr>
             <div id="comment-area">
                 <div>
                     <img class="avatar-img" th:src="${questionDto.avatarUrl}" alt="头像">
@@ -61,8 +71,8 @@
                 <textarea name="content" class="form-control comment-textarea" cols="30" rows="10"></textarea>
                 <button class="publish-btn-fq btn btn-success" onclick="submitComment()">提交</button>
             </div>
-
         </div>
+
         <div class="col-sm-3 publish_div_right">
             <div><h2>发起人</h2></div>
             <div class="media">
@@ -76,6 +86,7 @@
                 </div>
             </div>
         </div>
+
     </div>
 </div>
 </body>

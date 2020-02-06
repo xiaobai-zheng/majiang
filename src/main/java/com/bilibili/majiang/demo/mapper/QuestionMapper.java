@@ -9,7 +9,7 @@ import tk.mybatis.mapper.common.Mapper;
 @Repository
 public interface QuestionMapper extends Mapper<Question> {
     @Update("update question set view_count=view_count+1 where id=#{id}")
-    int incViewCount(@Param("id") Integer id);
+    int incViewCount(@Param("id") Long id);
     @Update("update question set comment_count=comment_count+1 where id=#{id}")
-    int incCommentCount(@Param("id") Integer id);
+    int incCommentCount(@Param("id") Long id);
 }

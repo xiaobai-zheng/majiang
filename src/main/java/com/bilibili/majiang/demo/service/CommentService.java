@@ -8,5 +8,5 @@ import java.util.List;
 
 public interface CommentService {
     Msg submitComment(Comment comment);
-    List<CommentDto> getQuestionComment(int parentId);
+    List<CommentDto> getComment(Long parentId,int type);
 }

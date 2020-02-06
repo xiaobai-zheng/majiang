@@ -11,20 +11,20 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserMapper userMapper;
     @Override
-    public Integer insertUserByAidIsNull(User user) {
+    public Long insertUserByAidIsNull(User user) {
         User user1 = userMapper.selectByAccountId(user.getAccountId());
         if (user1==null) {
             userMapper.insertSelective(user);
             return null;
         }
-        Integer id = user1.getId();
+        Long id = user1.getId();
         user.setId(id);
         userMapper.updateByPrimaryKeySelective(user);
         return id;
     }
 
     @Override
-    public User selectUserById(Integer id) {
+    public User selectUserById(Long id) {
         return userMapper.selectByPrimaryKey(id);
     }
 

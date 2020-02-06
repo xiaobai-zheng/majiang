@@ -10,13 +10,13 @@ public class Question {
 
   @Id
   @KeySql(useGeneratedKeys = true)
-  private Integer id;
+  private Long id;
   private String title;
   private String description;
   private String tag;
   private Long gemCreate;
   private Long gemModified;
-  private Integer creator;
+  private Long creator;
   private Integer commentCount;
   private Integer viewCount;
   private Integer likeCount;

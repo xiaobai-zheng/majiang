@@ -8,7 +8,7 @@ import javax.persistence.Id;
 public class User {
     @Id
     @KeySql(useGeneratedKeys = true)
-    private Integer id;
+    private Long id;
     private String accountId;
     private String name;
     private String token;

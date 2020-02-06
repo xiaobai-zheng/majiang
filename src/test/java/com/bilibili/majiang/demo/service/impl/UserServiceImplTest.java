@@ -28,7 +28,7 @@ public class UserServiceImplTest {
     }
     @Test
     public void selectUserById() {
-        System.out.println(userService.selectUserById(1));
+        System.out.println(userService.selectUserById(1L));
     }
     @Test
     public void selectUserByAccountId(){

@@ -9,6 +9,6 @@ public class QuestionServiceImpTest {
     @Test
     public void selectQuestionById() {
         QuestionService questionService = new QuestionServiceImp();
-        QuestionDto questionDto = questionService.selectQuestionById(2);
+        QuestionDto questionDto = questionService.selectQuestionById(2L);
     }
 }

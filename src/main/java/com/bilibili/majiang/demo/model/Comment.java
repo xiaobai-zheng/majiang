@@ -9,11 +9,11 @@ import javax.persistence.Id;
 public class Comment {
   @Id
   @KeySql(useGeneratedKeys = true)
-  private Integer id;
+  private Long id;
   private String content;
-  private Integer parentId;
+  private Long parentId;
   private Integer type;
-  private Integer commentator;
+  private Long commentator;
   private Long gemCreate;
   private Long gemModified;
   private Long likeCount;
