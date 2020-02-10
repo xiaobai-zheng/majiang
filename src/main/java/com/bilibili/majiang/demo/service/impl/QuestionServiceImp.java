@@ -13,9 +13,13 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.StringUtils;
 import tk.mybatis.mapper.entity.Example;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class QuestionServiceImp implements QuestionService {
@@ -101,6 +105,17 @@ public class QuestionServiceImp implements QuestionService {
     @Override
     public int incCommentCount(Long id) {
         return questionMapper.incCommentCount(id);
+    }
+
+    @Override
+    public List<Question> selectTagLike(Long id, String tag) {
+        if (tag == null){
+            return null;
+        }
+        String[] tags = StringUtils.split(tag, ",");
+        String tagStr = Arrays.stream(tags).collect(Collectors.joining("|"));
+        List<Question> questions = questionMapper.selectTagLike(id, tagStr);
+        return questions;
     }
 
 }

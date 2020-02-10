@@ -56,7 +56,7 @@ public class AuthorizeController {
 //            httpServletResponse.addCookie(new Cookie("accountId",user.getAccountId()));
             String id = session.getId();
             Cookie cookie = new Cookie("JSESSIONID", id);
-            cookie.setMaxAge(60*60);
+            cookie.setMaxAge(60*60*24);
             httpServletResponse.addCookie(cookie);
             return "redirect:/";
         }else {

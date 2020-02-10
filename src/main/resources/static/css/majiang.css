@@ -79,6 +79,17 @@ body{
 .comment-icon:hover{
     color: #499ef3;
 }
-.active{
+.myActive{
     color: #499ef3;
+}
+.tag{
+    cursor: pointer;
+    margin: 5px 5px;
+    white-space: normal;
+    display: inline-block;
+}
+.question-li{
+    list-style: none;
+    font-size: 18px;
+    padding-left: 0px;
 }

@@ -1,5 +1,6 @@
 package com.bilibili.majiang.demo.controller;
 
+import com.bilibili.majiang.demo.cache.TagCache;
 import com.bilibili.majiang.demo.model.Question;
 import com.bilibili.majiang.demo.model.User;
 import com.bilibili.majiang.demo.service.QuestionService;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -21,7 +23,8 @@ public class PublishController {
     @Autowired
     private QuestionService questionService;
     @GetMapping("/publish")
-    public String publish(){
+    public String publish(Model model){
+        model.addAttribute("tagDtos", TagCache.getTagDtos());
         return "publish";
     }
     @Transactional
@@ -38,6 +41,11 @@ public class PublishController {
               }
               if (tag == null||tag==""){
                   errorMap.put("tagError","标签不能为空,");
+              }else{
+                  List<String> list = TagCache.filterInvalid(tag);
+                  if (list.size() != 0){
+                      errorMap.put("tagError","你填写的标签有误；"+list);
+                  }
               }
                 model.addAttribute("title",title);
                 model.addAttribute("description",description);
@@ -45,6 +53,7 @@ public class PublishController {
                 model.addAttribute("id",id);
                 msg.add("errorMap",errorMap);
                 model.addAttribute("msg",msg);
+                model.addAttribute("tagDtos", TagCache.getTagDtos());
                  return "publish";
            }
             HttpSession session = httpServletRequest.getSession();

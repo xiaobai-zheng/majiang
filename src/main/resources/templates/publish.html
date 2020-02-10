@@ -5,6 +5,7 @@
     <title>码匠社区</title>
     <script type="text/javascript" src="/Jquery/jquery-1.12.4.js" language="JavaScript"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/community.js"></script>
     <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="/css/bootstrap-theme.min.css" rel="stylesheet">
     <link type="text/css" href="/css/majiang.css" rel="stylesheet">
@@ -19,18 +20,31 @@
                 <div class="form-group">
                     <input type="hidden" name="id" th:value="${id}">
                     <label for="title">问题标题(简单扼要)</label>
-                    <input type="text" class="form-control" id="title" name="title" placeholder="问题标题" th:value="${title}">
+                    <input type="text" class="form-control" id="title" name="title" placeholder="问题标题" autocomplete="off" th:value="${title}">
                     <span th:if="${msg!=null&&msg.getExtend()!=null&&msg.getExtend().get('errorMap')!=null}"><span th:text="${msg.getExtend().get('errorMap').get('titleError')}" class="publish-error"></span></span>
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充 （必填，请参考右边提示）</label>
-                    <textarea name="description" class="form-control" cols="30" rows="10" th:text = "${description}"></textarea>
+                    <textarea name="description" class="form-control" cols="30" rows="10" autocomplete="off" th:text = "${description}"></textarea>
                     <span th:if="${msg!=null&&msg.getExtend()!=null&&msg.getExtend().get('errorMap')!=null}"><span th:text="${msg.getExtend().get('errorMap').get('descriptionError')}" class="publish-error"></span></span>
                 </div>
                 <div class="form-group">
                     <label for="title">添加标签：</label>
-                    <input type="text" class="form-control" name="tag" placeholder="添加标签，以，好分隔" th:value="${tag}">
+                    <input type="text" class="form-control" name="tag" placeholder="添加标签，以，好分隔" autocomplete="off" onclick="showSelectTagTab()" th:value="${tag}">
                     <span th:if="${msg!=null&&msg.getExtend()!=null&&msg.getExtend().get('errorMap')!=null}"><span th:text="${msg.getExtend().get('errorMap').get('tagError')}" class="publish-error"></span></span>
+                </div>
+                <div id="select-tag-tab" style="display: none">
+                    <ul class="nav nav-tabs" role="tablist">
+                            <li th:each="tagDto,tagDtoStat:${tagDtos}" role="presentation" th:class="${tagDtoStat.first?'active':''}"><a th:href="'#'+${tagDto.getCategoryName()}" th:text="${tagDto.getCategoryName()}" role="tab" data-toggle="tab"></a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div th:each="selectTag,selectTagStat:${tagDtos}" role="tabpanel" th:class="${selectTagStat.first?'tab-pane active':'tab-pane'}" th:id="${selectTag.getCategoryName()}">
+                             <span th:each="tag:${selectTag.getTags()}" th:data-tag="${tag}" onclick="selectTag(this)" class="label label-info tag">
+                                 <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                                 <span th:text="${tag}"></span>
+                             </span>
+                        </div>
+                    </div>
                 </div>
                 <button type="submit" class="btn btn-success publish-btn-fq">发起</button>
             </form>

@@ -20,14 +20,23 @@
                 <span th:text="${questionDto.getCommentCount()}"></span> 个回复 •
                 <span th:text="${questionDto.getViewCount()}"></span>次浏览 •
                 <span th:text="${#dates.format(questionDto.getGemModified(),'yyyy-MM-dd HH:mm:SS')}"></span>
-            </div><hr>
-            <div>desc</div><hr><hr>
+            </div>
+            <div>desc<hr></div>
             <div>
                 <div  th:text="${questionDto.getDescription()}"></div>
+                <hr>
+            </div>
+            <div class="label label-info ；" th:each="tag:${questionDto.getTag().split(',')}">
+                    <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
+                    <span th:text="${tag}"></span>
             </div>
             <div>
                 <hr style="margin-bottom: 0;">
-                <div th:if="${questionDto.getCreator()==session.user.id}" class="majiang-tool tool"><a th:href="'/editQuestion/'+${questionDto.getId()}"><span class="glyphicon glyphicon-pencil"></span>编辑</a></div>
+                <div th:if="${questionDto.getCreator()==session.user.id}" class="majiang-tool tool">
+                    <a th:href="'/editQuestion/'+${questionDto.getId()}">
+                        <span class="glyphicon glyphicon-pencil"></span>编辑
+                    </a>
+                </div>
                 <div><span th:text="${questionDto.getCommentCount()}" id="commentCount"></span>个评论</div>
 <!--                <hr style="margin-top: 0;">-->
             </div>
@@ -69,7 +78,7 @@
                 <input type="hidden" name="parentId" th:value="${questionDto.id}">
                 <input type="hidden" name="type" value="1">
                 <textarea name="content" class="form-control comment-textarea" cols="30" rows="10"></textarea>
-                <button class="publish-btn-fq btn btn-success" onclick="submitComment()">提交</button>
+                <utton class="publish-btn-fq btn btn-success" onclick="submitComment()">提交</utton>
             </div>
         </div>
 
@@ -85,8 +94,18 @@
                     <h5 class="media-centre"><span th:text="${questionDto.getCreatorName()}"></span></h5>
                 </div>
             </div>
+            <hr>
+            <div>
+                <h2>相关问题</h2>
+                <ul class="question-li">
+                    <span th:if = "${questionLikes != null}">
+                        <li th:each="question:${questionLikes}">
+                            <a th:href="'/question/'+${question.getId()}" th:text="${question.getTitle()}"></a>
+                        </li>
+                    </span>
+                </ul>
+            </div>
         </div>
-
     </div>
 </div>
 </body>

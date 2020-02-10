@@ -30,6 +30,11 @@
                         <span th:text="${questionDto.getCommentCount()}"></span> 个回复 •
                         <span th:text="${questionDto.getViewCount()}"></span>次浏览 •
                         <span th:text="${#dates.format(questionDto.getGemModified(),'yyyy-MM-dd HH:mm:SS')}"></span>
+                        <span class="majiang-tool pull-right">
+                            <a th:href="'/editQuestion/'+${questionDto.getId()}">
+                                <span class="glyphicon glyphicon-pencil"></span>编辑
+                            </a>
+                         </span>
                     </span>
                 </div>
             </div>

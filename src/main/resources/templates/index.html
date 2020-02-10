@@ -24,8 +24,7 @@
     <div class="row">
         <div class="col-sm-9  publish_div_left">
             <p class="p_fq"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><b>发现</b></p>
-            <span th:each="questionDto:${pageInfo.list}">
-            <div class="media">
+            <div class="media" th:each="questionDto:${pageInfo.list}">
                 <div class="media-left media-middle">
                     <a href="#">
                         <img class="media-object avatar-img" th:src="${questionDto.avatarUrl}" alt="头像">
@@ -41,7 +40,6 @@
                     </span>
                 </div>
             </div>
-            </span>
             <nav aria-label="Page navigation" class="question-navigation">
                 <ul class="pagination">
                     <li><a href="/?pn=1">首页</a></li>

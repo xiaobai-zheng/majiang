@@ -55,12 +55,12 @@ function controllerCollapse(ele) {
         eCollapse.addClass("in");
         e.attr("data-collapse","2");
         sunCommentHtml(id,2);
-        e.removeClass("active");
+        e.removeClass("myActive");
     }else{
         eCollapse.removeClass("in");
         e.attr("data-collapse","1");
         $("input[name=sunCommentContent"+id+"]").val("");
-        e.addClass("active");
+        e.addClass("myActive");
     }
 }
 function sunCommentHtml(id,type){
@@ -91,3 +91,19 @@ function sunCommentHtml(id,type){
          }
      })
 }
+function showSelectTagTab() {
+    $("#select-tag-tab").show();
+}
+function selectTag(ele) {
+    var textTag = $("input[name='tag']").val();
+    var tag = $(ele).attr("data-tag");
+    if (textTag){
+        if (textTag.indexOf(tag) <0){
+            $("input[name='tag']").val(textTag+","+tag);
+        }
+    } else {
+        $("input[name='tag']").val(tag);
+    }
+
+}
+
