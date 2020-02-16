@@ -1,9 +1,7 @@
 package com.bilibili.majiang.demo.controller;
 
-import com.bilibili.majiang.demo.dto.NotificationDto;
 import com.bilibili.majiang.demo.dto.QuestionDto;
 import com.bilibili.majiang.demo.model.User;
-import com.bilibili.majiang.demo.service.NotificationService;
 import com.bilibili.majiang.demo.service.QuestionService;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,8 +17,8 @@ import javax.servlet.http.HttpSession;
 public class ProfileController {
     @Autowired
     private QuestionService questionService;
-    @Autowired
-    private NotificationService notificationService;
+//    @Autowired
+//    private NotificationService notificationService;
     @GetMapping("/profile/{section}")
     public String profile(@PathVariable(name = "section") String section, HttpServletRequest httpServletRequest,Model model){
         HttpSession session = httpServletRequest.getSession();
@@ -31,10 +29,9 @@ public class ProfileController {
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的问题");
         }else if ("replies".equals(section)){
-            model.addAttribute("section","replies");
-            model.addAttribute("sectionName","最新回复");
-            PageInfo<NotificationDto> notificationDtoPageInfo = notificationService.myNotificationpage(user.getId(), 1, 6);
-            model.addAttribute("pageInfo",notificationDtoPageInfo);
+//            PageInfo<NotificationDto> notificationDtoPageInfo = notificationService.myNotificationpage(user.getId(), 1, 6);
+//            model.addAttribute("pageInfo",notificationDtoPageInfo);
+            return "forward:/notification";
         }
         return "profile";
     }

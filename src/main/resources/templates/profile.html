@@ -58,7 +58,7 @@
                     </li>
                     <li th:each="page:${pageInfo.getNavigatepageNums()}" th:class="${page==pageInfo.getPageNum()?'active':''}">
                         <a th:if="${section=='questions'}" th:href="'/?pn='+${page}" th:text="${page}"></a>
-                        <a th:if="${section=='replies'}" th:href="'/nopn='+${page}" th:text="${page}"></a>
+                        <a th:if="${section=='replies'}" th:href="'/notification?pn='+${page}" th:text="${page}"></a>
                     </li>
                     <li>
                         <a th:href="'/?pn='+${pageInfo.getPageNum()+1}" aria-label="Next">
