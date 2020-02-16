@@ -1,12 +1,16 @@
 package com.bilibili.majiang.demo.service.impl;
 
 import com.bilibili.majiang.demo.Enums.CustomTypeEnum;
+import com.bilibili.majiang.demo.Enums.NotificationStatusEnum;
+import com.bilibili.majiang.demo.Enums.NotificationTypeEnum;
 import com.bilibili.majiang.demo.dto.CommentDto;
 import com.bilibili.majiang.demo.exception.CustomExceptionCodeImpl;
 import com.bilibili.majiang.demo.mapper.CommentMapper;
+import com.bilibili.majiang.demo.mapper.NotificationMapper;
 import com.bilibili.majiang.demo.mapper.QuestionMapper;
 import com.bilibili.majiang.demo.mapper.UserMapper;
 import com.bilibili.majiang.demo.model.Comment;
+import com.bilibili.majiang.demo.model.Notification;
 import com.bilibili.majiang.demo.model.Question;
 import com.bilibili.majiang.demo.model.User;
 import com.bilibili.majiang.demo.service.CommentService;
@@ -32,6 +36,8 @@ public class CommentServiceImpl implements CommentService {
     private QuestionMapper questionMapper;
     @Autowired
     private UserMapper userMapper;
+    @Autowired
+    private NotificationMapper notificationMapper;
     @Override
     @Transactional
     public Msg submitComment(Comment comment) {
@@ -48,18 +54,32 @@ public class CommentServiceImpl implements CommentService {
                 return Msg.fail(CustomExceptionCodeImpl.FIND_QUESTION_EXCEPTION);
             }
             num = commentMapper.insertSelective(comment);
+            createNotification(comment,question.getCreator(),NotificationTypeEnum.REPLY_QUESTION.getType());
         }else {
             Comment comment1 = commentMapper.selectByPrimaryKey(comment.getParentId());
             if (comment1 == null){
                 return Msg.fail(CustomExceptionCodeImpl.FIND_COMMENT_EXCEPTION);
             }
             num = commentMapper.insertSelective(comment);
+            createNotification(comment,comment1.getCommentator(), NotificationTypeEnum.REPLY_COMMENT.getType());
         }
         if (num <=0){
             return Msg.fail();
         }else {
             return Msg.success();
         }
+    }
+
+    public void createNotification(Comment comment,Long receiver,int type) {
+
+        Notification notification = new Notification();
+        notification.setNotifier(comment.getCommentator());
+        notification.setGemCreate(comment.getGemCreate());
+        notification.setOuterid(comment.getParentId());
+        notification.setStatus(NotificationStatusEnum.STATUS_UNREAD.getStatus());
+        notification.setReceiver(receiver);
+        notification.setType(type);
+        notificationMapper.insertSelective(notification);
     }
 
     @Override

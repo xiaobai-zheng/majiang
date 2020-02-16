@@ -15,8 +15,8 @@
     <div class="row">
         <div class="col-sm-9  publish_div_left">
             <h2 class="p_fq" th:text="${sectionName}"></h2><hr>
-
-            <span th:if="${pageInfo!=null}">
+<!--            'questions' == section &&-->
+            <span th:if="${ 'questions' == section && pageInfo!=null}">
             <div class="media" th:each="questionDto:${pageInfo.list}">
                 <div class="media-left media-middle">
                     <a href="#">
@@ -39,7 +39,16 @@
                 </div>
             </div>
             </span>
-            <nav aria-label="Page navigation" class="question-navigation">
+            <span th:if="${ 'replies' == section && pageInfo!=null}">
+                <div class="media comment" th:each="notificationDto:${pageInfo.list}">
+                    <div class="media-body" >
+                        <a href="#" th:text="${notificationDto.notifierName}"></a>
+                        <b th:text="${notificationDto.type}"></b>
+                        <a th:href="'/notification/'+${notificationDto.id+'/'+notificationDto.outerid}" th:text="${notificationDto.outerTitle}"></a>
+                    </div>
+                </div>
+            </span>
+            <nav th:if="${pageInfo!=null}" aria-label="Page navigation" class="question-navigation">
                 <ul class="pagination">
                     <li><a href="/?pn=1">首页</a></li>
                     <li>
@@ -47,7 +56,10 @@
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li th:each="page:${pageInfo.getNavigatepageNums()}" th:class="${page==pageInfo.getPageNum()?'active':''}"><a th:href="'/?pn='+${page}" th:text="${page}"></a></li>
+                    <li th:each="page:${pageInfo.getNavigatepageNums()}" th:class="${page==pageInfo.getPageNum()?'active':''}">
+                        <a th:if="${section=='questions'}" th:href="'/?pn='+${page}" th:text="${page}"></a>
+                        <a th:if="${section=='replies'}" th:href="'/nopn='+${page}" th:text="${page}"></a>
+                    </li>
                     <li>
                         <a th:href="'/?pn='+${pageInfo.getPageNum()+1}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
@@ -60,7 +72,7 @@
         <div class="col-sm-3 publish_div_right">
             <div class="list-group">
                 <a href="/profile/questions" th:class="${section=='questions'}?'list-group-item active':'list-group-item'">我的问题</a>
-                <a href="/profile/replies"  th:class="${section=='replies'}?'list-group-item active':'list-group-item'">最新回复</a>
+                <a href="/profile/replies"  th:class="${section=='replies'}?'list-group-item active':'list-group-item'">最新回复<span class="badge" th:text="${session.unReadCount}"></span></a>
             </div>
         </div>
     </div>

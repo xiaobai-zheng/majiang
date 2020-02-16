@@ -10,12 +10,14 @@ function disposeComment(parentId,type,content){
         contentType: "application/json",
         data:JSON.stringify({"parentId":parentId,"type":type,"content":content}),
         success:function(result){
+            debugger;
             if (result.code==100){
                 if(type == "1"){
                     window.location.reload();
                     $("#comment-area").hide();
                 }else {
-                    $("input[name=sunCommentContent-"+parentCommentId+"]").val("");
+                    $("input[name=sunCommentContent-"+parentId+"]").val("");
+                    alert("可以成功提交子评论");
                     sunCommentHtml(parentId,type);
                 }
             }else {
