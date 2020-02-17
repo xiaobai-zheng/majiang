@@ -5,10 +5,19 @@
     <title>码匠社区</title>
     <script type="text/javascript" src="/Jquery/jquery-1.12.4.js" language="JavaScript"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/js/community.js"></script>
+    <script type="text/javascript" src="/js/editormd.min.js"></script>
+    <script type="text/javascript" src="/js/lib/marked.min.js"></script>
+    <script type="text/javascript" src="/js/lib/prettify.min.js"></script>
     <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="/css/bootstrap-theme.min.css" rel="stylesheet">
+    <link type="text/css" href="/css/editormd.preview.min.css" rel="stylesheet">
     <link type="text/css" href="/css/majiang.css" rel="stylesheet">
-    <script type="text/javascript" src="/js/community.js" language="JavaScript"></script>
+    <script type="text/javascript">
+        $(function() {
+           editormd.markdownToHTML("question-view", {});
+        });
+    </script>
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div><br>
@@ -22,8 +31,8 @@
                 <span th:text="${#dates.format(questionDto.getGemModified(),'yyyy-MM-dd HH:mm:SS')}"></span>
             </div>
             <div>desc<hr></div>
-            <div>
-                <div  th:text="${questionDto.getDescription()}"></div>
+            <div id="question-view">
+                <textarea style="display:none;" th:text="${questionDto.getDescription()}"></textarea>
                 <hr>
             </div>
             <div class="label label-info ；" th:each="tag:${questionDto.getTag().split(',')}">

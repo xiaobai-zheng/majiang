@@ -6,9 +6,22 @@
     <script type="text/javascript" src="/Jquery/jquery-1.12.4.js" language="JavaScript"></script>
     <script type="text/javascript" src="/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="/js/community.js"></script>
+    <script type="text/javascript" src="/js/editormd.min.js"></script>
     <link type="text/css" href="/css/bootstrap.min.css" rel="stylesheet">
     <link type="text/css" href="/css/bootstrap-theme.min.css" rel="stylesheet">
     <link type="text/css" href="/css/majiang.css" rel="stylesheet">
+    <link type="text/css" href="\css\editormd.css" rel="stylesheet">
+    <script type="text/javascript">
+        $(function() {
+            var editor = editormd("question-area", {
+                width  : "100%",
+                height : 500,
+                path   : "/js/lib/",
+                watch: false,
+                placeholder: "请填写一下你对问题的描述"
+            });
+        });
+    </script>
 </head>
 <body>
 <div th:insert="~{navigation :: nav}"></div><br>
@@ -25,7 +38,9 @@
                 </div>
                 <div class="form-group">
                     <label for="title">问题补充 （必填，请参考右边提示）</label>
-                    <textarea name="description" class="form-control" cols="30" rows="10" autocomplete="off" th:text = "${description}"></textarea>
+                    <div id="question-area">
+                        <textarea name="description" class="form-control" style="display:none;" cols="30" rows="10" autocomplete="off" th:text = "${description}"></textarea>
+                    </div>
                     <span th:if="${msg!=null&&msg.getExtend()!=null&&msg.getExtend().get('errorMap')!=null}"><span th:text="${msg.getExtend().get('errorMap').get('descriptionError')}" class="publish-error"></span></span>
                 </div>
                 <div class="form-group">

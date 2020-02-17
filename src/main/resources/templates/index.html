@@ -32,7 +32,7 @@
                 </div>
                 <div class="media-body" >
                     <a th:href="'/question/'+${questionDto.getId()}"><h4 class="media-heading" th:text="${questionDto.getTitle()}"></h4></a>
-                    <span th:text="${questionDto.getDescription()}"></span><br>
+<!--                    <span th:text="${questionDto.getDescription()}"></span><br>-->
                     <span class="text-desc">
                         <span th:text="${questionDto.getCommentCount()}"></span> 个回复 •
                         <span th:text="${questionDto.getViewCount()}"></span>次浏览 •
