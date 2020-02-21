@@ -14,11 +14,14 @@
     <script type="text/javascript">
         $(function() {
             var editor = editormd("question-area", {
-                width  : "100%",
-                height : 500,
-                path   : "/js/lib/",
+                width: "100%",
+                height: 500,
+                path: "/js/lib/",
                 watch: false,
-                placeholder: "请填写一下你对问题的描述"
+                placeholder: "请填写一下你对问题的描述",
+                imageUpload: true,
+                imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                imageUploadURL: "/file/upload"
             });
         });
     </script>

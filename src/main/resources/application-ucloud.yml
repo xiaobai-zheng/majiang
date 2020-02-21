@@ -1,0 +1,8 @@
+ucloud:
+  ufile:
+    public: TOKEN_dd2047bd-5d33-436f-9aa1-7c8931f3494a
+    private: 4f172511-0264-4451-987b-65af8fb1775c
+    region: cn-bj
+    proxySuffix: ufileos.com
+    expires: 3600
+    bucketName: zgqmajiang

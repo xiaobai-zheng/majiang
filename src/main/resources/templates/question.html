@@ -31,10 +31,11 @@
                 <span th:text="${#dates.format(questionDto.getGemModified(),'yyyy-MM-dd HH:mm:SS')}"></span>
             </div>
             <div>desc<hr></div>
+            <!-- 添加富文本编辑功能 -->
             <div id="question-view">
                 <textarea style="display:none;" th:text="${questionDto.getDescription()}"></textarea>
-                <hr>
             </div>
+            <hr>
             <div class="label label-info ；" th:each="tag:${questionDto.getTag().split(',')}">
                     <span class="glyphicon glyphicon-tags" aria-hidden="true"></span>
                     <span th:text="${tag}"></span>
