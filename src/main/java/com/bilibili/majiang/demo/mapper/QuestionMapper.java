@@ -18,4 +18,6 @@ public interface QuestionMapper extends Mapper<Question> {
     //regexp正则表达式
     @Select("select * from QUESTION where TAG regexp #{tag} and id != #{id}")
     List<Question> selectTagLike(@Param("id") Long id,@Param("tag") String tag);
+    @Select("select * from QUESTION where TITLE regexp #{title}")
+    List<Question> selectTitleLike(@Param("title") String titleStr);
 }

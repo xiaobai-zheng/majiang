@@ -18,7 +18,7 @@
             <h2 class="p_fq" th:text="${sectionName}"></h2><hr>
 <!--            'questions' == section &&-->
             <span th:if="${ 'questions' == section && pageInfo!=null}">
-            <div class="media" th:each="questionDto:${pageInfo.list}">
+            <div class="media question-area" th:each="questionDto:${pageInfo.list}">
                 <div class="media-left media-middle">
                     <a href="#">
                         <img class="media-object avatar-img" th:src="${questionDto.avatarUrl}" alt="头像">
@@ -78,5 +78,6 @@
         </div>
     </div>
 </div>
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

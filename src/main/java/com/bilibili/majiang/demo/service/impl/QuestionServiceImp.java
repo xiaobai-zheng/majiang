@@ -59,10 +59,22 @@ public class QuestionServiceImp implements QuestionService {
     public PageInfo<QuestionDto> getPageInfo(Integer pn,Integer pageSize) {
         PageHelper.startPage(pn,pageSize,true);
         List<Question> questions = questionMapper.selectAll();
+        return getQuestionDtoPageInfo(questions);
+    }
+    @Override
+    public PageInfo<QuestionDto> searchQuestion(String search,Integer pn,Integer pageSize) {
+        PageHelper.startPage(pn,pageSize,true);
+        String[] titles = StringUtils.split(search, " ");
+        String titleStr = Arrays.stream(titles).collect(Collectors.joining("|"));
+        List<Question> questions = questionMapper.selectTitleLike(titleStr);
+        return getQuestionDtoPageInfo(questions);
+    }
+
+    public PageInfo<QuestionDto> getQuestionDtoPageInfo(List<Question> questions) {
         PageInfo<Question> pageInfo = new PageInfo<>(questions, 5);
         PageInfo<QuestionDto> pageInfo1 = new PageInfo<>();
         List<QuestionDto> questionDtos = this.questionDtoList(questions);
-        BeanUtils.copyProperties(pageInfo,pageInfo1);
+        BeanUtils.copyProperties(pageInfo, pageInfo1);
         pageInfo1.setList(questionDtos);
         return pageInfo1;
     }

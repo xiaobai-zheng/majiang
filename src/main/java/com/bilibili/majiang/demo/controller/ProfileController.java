@@ -24,7 +24,7 @@ public class ProfileController {
         HttpSession session = httpServletRequest.getSession();
         User user = (User)session.getAttribute("user");
         if (section == null||"questions".equals(section)){
-            PageInfo<QuestionDto> pageInfo = questionService.myQuestionspage(user.getId(),1,6);
+            PageInfo<QuestionDto> pageInfo = questionService.myQuestionspage(user.getId(),1,8);
             model.addAttribute("pageInfo",pageInfo);
             model.addAttribute("section","questions");
             model.addAttribute("sectionName","我的问题");

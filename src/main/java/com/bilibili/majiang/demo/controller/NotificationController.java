@@ -20,7 +20,7 @@ public class NotificationController {
     @Autowired
     private NotificationService notificationService;
     @GetMapping("/notification")
-    public String profile(@RequestParam(value = "pn",defaultValue = "1")Integer pn, @RequestParam(value = "pageSize",defaultValue = "5") Integer pageSize,
+    public String profile(@RequestParam(value = "pn",defaultValue = "1")Integer pn, @RequestParam(value = "pageSize",defaultValue = "8") Integer pageSize,
                                HttpServletRequest request,Model model){
         User user = (User) request.getSession().getAttribute("user");
         PageInfo<NotificationDto> notificationDtoPageInfo = notificationService.myNotificationpage(user.getId(), pn, pageSize);

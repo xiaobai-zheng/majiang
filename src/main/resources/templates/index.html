@@ -24,7 +24,7 @@
     <div class="row">
         <div class="col-sm-9  publish_div_left">
             <p class="p_fq"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span><b>发现</b></p>
-            <div class="media" th:each="questionDto:${pageInfo.list}">
+            <div class="media question-area" th:each="questionDto:${pageInfo.list}">
                 <div class="media-left media-middle">
                     <a href="#">
                         <img class="media-object avatar-img" th:src="${questionDto.avatarUrl}" alt="头像">
@@ -42,19 +42,21 @@
             </div>
             <nav aria-label="Page navigation" class="question-navigation">
                 <ul class="pagination">
-                    <li><a href="/?pn=1">首页</a></li>
+                    <li><a th:href="${search == null ?'/?pn=1':'/?pn=1&search='+search}">首页</a></li>
                     <li>
-                        <a th:href="'/?pn='+${pageInfo.getPageNum()-1}" aria-label="Previous">
+                        <a th:href="'/?pn='+${search == null?pageInfo.getPageNum()-1:pageInfo.getPageNum()-1+'&search='+search}" aria-label="Previous">
                             <span aria-hidden="true">&laquo;</span>
                         </a>
                     </li>
-                    <li th:each="page:${pageInfo.getNavigatepageNums()}" th:class="${page==pageInfo.getPageNum()?'active':''}"><a th:href="'/?pn='+${page}" th:text="${page}"></a></li>
+                    <li th:each="page:${pageInfo.getNavigatepageNums()}" th:class="${page==pageInfo.getPageNum()?'active':''}">
+                        <a th:href="'/?pn='+${search == null?page:page+'&search='+search}" th:text="${page}"></a>
+                    </li>
                     <li>
-                        <a th:href="'/?pn='+${pageInfo.getPageNum()+1}" aria-label="Next">
+                        <a th:href="'/?pn='+${search == null?pageInfo.getPageNum()+1:pageInfo.getPageNum()+1+'&search='+search}" aria-label="Next">
                             <span aria-hidden="true">&raquo;</span>
                         </a>
                     </li>
-                    <li><a th:href="'/?pn='+${pageInfo.getPages()}">尾页</a></li>
+                    <li><a th:href="'/?pn='+${search == null?pageInfo.getPages():pageInfo.getPages()+'&search='+search}">尾页</a></li>
                 </ul>
             </nav>
         </div>
@@ -66,5 +68,6 @@
         </div>
     </div>
 </div>
+<div th:insert="~{footer :: foot}"></div>
 </body>
 </html>

@@ -93,3 +93,10 @@ body{
     font-size: 18px;
     padding-left: 0px;
 }
+#foot {
+    color: #666;
+    padding: 15px 20%;
+}
+.question-area{
+    margin-top: 20px;
+}

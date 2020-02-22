@@ -17,7 +17,6 @@ function disposeComment(parentId,type,content){
                     $("#comment-area").hide();
                 }else {
                     $("input[name=sunCommentContent-"+parentId+"]").val("");
-                    alert("可以成功提交子评论");
                     sunCommentHtml(parentId,type);
                 }
             }else {
