@@ -3,6 +3,7 @@ package com.bilibili.majiang.demo.controller;
 import com.bilibili.majiang.demo.dto.QuestionDto;
 import com.bilibili.majiang.demo.service.QuestionService;
 import com.github.pagehelper.PageInfo;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
+@Slf4j
 public class IndexController {
     @Autowired
     private QuestionService questionService;
