@@ -11,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.servlet.http.HttpServletRequest;
+
 @Controller
 @Slf4j
 public class IndexController {
@@ -19,7 +21,9 @@ public class IndexController {
     @GetMapping("/")
     public String index(@RequestParam(value = "pn",defaultValue = "1")Integer pn,
                         @RequestParam(value = "pageSize",defaultValue = "8") Integer pageSize,
-                        @RequestParam(value = "search",required = false)String search,Model model){
+                        @RequestParam(value = "search",required = false)String search, Model model, HttpServletRequest request){
+        System.out.println("ContextPath:"+request.getContextPath()+"\nScheme:"+request.getScheme()+
+                "\nServletPath:"+request.getServletPath()+"\nServerName:"+request.getServerName());
         if (StringUtils.isNotBlank(search)){
             PageInfo<QuestionDto> pageInfo = questionService.searchQuestion(search, pn, pageSize);
             model.addAttribute("pageInfo",pageInfo);

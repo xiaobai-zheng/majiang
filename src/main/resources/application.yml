@@ -1,5 +1,5 @@
 server:
-  port: 8887
+  port: 80
 spring:
   profiles:
     active: token,spring,mybatis,ucloud
