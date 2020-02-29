@@ -1,7 +1,7 @@
 mybatis:
   type-aliases-package: com.bilibili.majiang.demo.model.User
 pagehelper:
-  helperDialect: h2
+  helperDialect: mysql
   reasonable: true
   support-methods-arguments: true
   params: count=countSql
