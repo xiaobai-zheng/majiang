@@ -22,7 +22,7 @@ import java.util.Map;
 public class PublishController {
     @Autowired
     private QuestionService questionService;
-    @GetMapping("/publish")
+    @GetMapping("/publisha")
     public String publish(Model model){
         model.addAttribute("tagDtos", TagCache.getTagDtos());
         return "publish";
