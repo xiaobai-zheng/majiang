@@ -31,8 +31,6 @@ public class NotificationController {
     }
     @GetMapping("/notification/{id}/{outerid}")
     public String read(@PathVariable(name = "id") Long id, @PathVariable(name = "outerid") Long outerid, HttpServletRequest request){
-        System.out.println("ContextPath:"+request.getContextPath()+"\nScheme:"+request.getScheme()+
-                "\nServletPath:"+request.getServletPath()+"\nServerName:"+request.getServerName()+"/nRequestURI:"+request.getRequestURI());
         User user = (User)request.getSession().getAttribute("user");
         if (user == null){
             return "redirect:/";

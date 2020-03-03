@@ -19,7 +19,7 @@
                 <button type="submit" class="btn btn-default">搜索</button>
             </form>
             <ul class="nav navbar-nav navbar-right">
-                <li th:if="${session.user==null}"><a th:href="'https://github.com/login/oauth/authorize?client_id=4bbe59b576eea0d10c54&redirect_uri=http://'+${#httpServletRequest.getServerName()}+':8887/callback&scope=1'">登入</a></li>
+                <li th:if="${session.user==null}"><a th:href="'https://github.com/login/oauth/authorize?client_id=4bbe59b576eea0d10c54&redirect_uri=http://'+${#httpServletRequest.getServerName()}+'/callback&scope=1'">登入</a></li>
                 <li th:if="${session.user!=null}" ><a href="/publish">提问</a></li>
                 <li th:if="${session.user!=null}" ><a href="/profile/replies">通知<span class="badge" th:text="${session.unReadCount}"></span></a></li>
                 <li class="dropdown" th:if="${session.user!=null}">
