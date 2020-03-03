@@ -47,15 +47,16 @@ public class PublishController {
                       errorMap.put("tagError","你填写的标签有误；"+list);
                   }
               }
-                model.addAttribute("title",title);
-                model.addAttribute("description",description);
-                model.addAttribute("tag",tag);
-                model.addAttribute("id",id);
-                msg.add("errorMap",errorMap);
-                model.addAttribute("msg",msg);
-                model.addAttribute("tagDtos", TagCache.getTagDtos());
-                 return "publish";
-           }
+            return saveMessage(id, title, description, tag, model, msg, errorMap);
+        }else{
+            List<String> list = TagCache.filterInvalid(tag);
+            if (list.size() != 0){
+                Msg msg = Msg.fail();
+                Map<String, String> errorMap = new HashMap();
+                errorMap.put("tagError","你填写的标签有误；"+list);
+                return saveMessage(id, title, description, tag, model, msg, errorMap);
+            }
+        }
             HttpSession session = httpServletRequest.getSession();
             User user = (User)session.getAttribute("user");
             Question question = new Question();
@@ -68,5 +69,16 @@ public class PublishController {
             question.setGemModified(question.getGemCreate());
             questionService.insertOrUpdateQuestion(question);
             return "redirect:/?pn="+Integer.MAX_VALUE;
+    }
+
+    public String saveMessage(Long id, String title, String description, String tag, Model model, Msg msg, Map<String, String> errorMap) {
+        model.addAttribute("title", title);
+        model.addAttribute("description", description);
+        model.addAttribute("tag", tag);
+        model.addAttribute("id", id);
+        msg.add("errorMap", errorMap);
+        model.addAttribute("msg", msg);
+        model.addAttribute("tagDtos", TagCache.getTagDtos());
+        return "publish";
     }
 }

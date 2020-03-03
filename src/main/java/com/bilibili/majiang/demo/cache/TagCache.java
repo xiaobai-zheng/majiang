@@ -46,7 +46,8 @@ public class TagCache {
         String[] inputTags = StringUtils.split(tagStr, ",");
         List<TagDto> tagDtos = getTagDtos();
         List<String> tags = tagDtos.stream().flatMap(tagDto -> tagDto.getTags().stream()).collect(Collectors.toList());
-        List<String> invalidTags = Arrays.stream(inputTags).filter(t -> !tagDtos.contains(t)).collect(Collectors.toList());
+        List<String> invalidTags = Arrays.stream(inputTags).filter(t -> !tags.contains(t)).collect(Collectors.toList());
+
         if (invalidTags.size() != 0){
             return invalidTags;
         }

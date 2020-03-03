@@ -17,6 +17,7 @@ import com.github.pagehelper.PageInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.ListUtils;
 import tk.mybatis.mapper.entity.Example;
 
 import java.util.*;
@@ -38,14 +39,19 @@ public class NotificationServiceImpl implements NotificationService {
         Example example = new Example(Notification.class);
         example.createCriteria().andEqualTo("notifier",id).andEqualTo("status", NotificationStatusEnum.STATUS_UNREAD.getStatus());
         List<Notification> notifications = notificationMapper.selectByExample(example);
+        if (ListUtils.isEmpty(notifications)){
+            return new PageInfo<>();
+        }
         PageInfo<Notification> pageInfo = new PageInfo<>(notifications,5);
         Set<Long> notifierIds = notifications.stream().map(notification -> notification.getNotifier()).collect(Collectors.toSet());
         List<Long> userIdList = new ArrayList<>(notifierIds);
+        if (ListUtils.isEmpty(userIdList)){
+            return new PageInfo<>();
+        }
         Example userExample = new Example(User.class);
         userExample.createCriteria().andIn("id", userIdList);
         List<User> userList = userMapper.selectByExample(userExample);
         Map<Long,String> longUserNameMap = userList.stream().collect(Collectors.toMap(user -> user.getId(), user -> user.getName()));
-
         Set<Long> commentIds = new HashSet<>();
         Set<Long> questionIds = new HashSet<>();
         for (Notification notification : notifications) {
