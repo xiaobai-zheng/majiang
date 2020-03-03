@@ -14,6 +14,7 @@ public class MvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(this.getSessionInterceptor()).addPathPatterns("/*").excludePathPatterns("/","/callback");
+        String[] excludes = {"/", "/callback", "/css/**", "/fonts/**", "/images/**", "/Jquery/**","/js/**"};
+        registry.addInterceptor(this.getSessionInterceptor()).addPathPatterns("/**").excludePathPatterns(excludes);
     }
 }

@@ -23,7 +23,7 @@ public class IndexController {
                         @RequestParam(value = "pageSize",defaultValue = "8") Integer pageSize,
                         @RequestParam(value = "search",required = false)String search, Model model, HttpServletRequest request){
         System.out.println("ContextPath:"+request.getContextPath()+"\nScheme:"+request.getScheme()+
-                "\nServletPath:"+request.getServletPath()+"\nServerName:"+request.getServerName());
+                "\nServletPath:"+request.getServletPath()+"\nServerName:"+request.getServerName()+"/nRequestURI:"+request.getRequestURI());
         if (StringUtils.isNotBlank(search)){
             PageInfo<QuestionDto> pageInfo = questionService.searchQuestion(search, pn, pageSize);
             model.addAttribute("pageInfo",pageInfo);

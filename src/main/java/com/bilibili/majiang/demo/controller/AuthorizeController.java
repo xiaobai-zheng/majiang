@@ -4,6 +4,7 @@ import com.bilibili.majiang.demo.dto.AccessTokenDto;
 import com.bilibili.majiang.demo.dto.GitHubUser;
 import com.bilibili.majiang.demo.model.User;
 import com.bilibili.majiang.demo.provider.GithubProvider;
+import com.bilibili.majiang.demo.service.NotificationService;
 import com.bilibili.majiang.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -22,6 +23,8 @@ public class AuthorizeController {
     private GithubProvider githubProvider;
     @Autowired
     private UserService userService;
+    @Autowired
+    private NotificationService notificationService;
     @Value("${github.client_id}")
     private String client_id;
     @Value("${github.client_secret}")
@@ -53,6 +56,7 @@ public class AuthorizeController {
             }
             HttpSession session = httpServletRequest.getSession();
             session.setAttribute("user",user);
+            session.setAttribute("unReadCount",notificationService.unReadCount(user.getId()));
 //            httpServletResponse.addCookie(new Cookie("accountId",user.getAccountId()));
             String id = session.getId();
             Cookie cookie = new Cookie("JSESSIONID", id);
